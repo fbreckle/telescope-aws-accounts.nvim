@@ -22,7 +22,7 @@ local displayer = entry_display.create({
 --- Renders the preview of an entry
 -- @param entry table The entry to create the preview of
 -- @return table The preview of the entry
-local function get_previewer_lines(entry)
+local get_previewer_lines = function(entry)
   local lines = {
     "Account Name: " .. entry.value.name,
     "Account ID: " .. entry.value.sso_account_id,

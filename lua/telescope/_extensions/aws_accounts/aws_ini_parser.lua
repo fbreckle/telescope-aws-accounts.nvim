@@ -1,7 +1,7 @@
 --- Extracts SSO profiles from a parsed AWS config
 -- @param aws_config table The parsed AWS config
 -- @return table An array containing the profile configuration
-local function extract_sso_profiles(aws_config)
+local extract_sso_profiles = function(aws_config)
   local output = {}
   local profile_name = nil
   for section, section_content in pairs(aws_config) do
