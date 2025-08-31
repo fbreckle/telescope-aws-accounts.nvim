@@ -62,16 +62,16 @@ local aws_account_picker = function(opts)
     prompt_title = "AWS Accounts",
     finder = finders.new_table {
       results = results,
-      entry_maker = function(entry)
+      entry_maker = function(account_data)
         return {
-          value = entry,
+          value = account_data,
           display = function()
             return displayer({
               { account_data.name, "TelescopeResultsIdentifier" },
               { account_data.sso_account_id, "TelescopeResultsComment"},
             })
           end,
-          ordinal = entry.sso_account_id .. entry.name,
+          ordinal = account_data.sso_account_id .. account_data.name,
         }
       end
     },
