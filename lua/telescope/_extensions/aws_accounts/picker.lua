@@ -6,7 +6,7 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local entry_display = require('telescope.pickers.entry_display')
 
-local aws_ini_parser = require("telescope._extensions.aws_account_picker.aws_ini_parser")
+local aws_ini_parser = require("telescope._extensions.aws_accounts.aws_ini_parser")
 
 -- Create a displayer function with two columns
 local displayer = entry_display.create({
