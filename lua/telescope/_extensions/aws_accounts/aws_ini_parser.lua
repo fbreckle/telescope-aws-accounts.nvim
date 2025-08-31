@@ -9,8 +9,11 @@ local extract_sso_profiles = function(aws_config)
     if section:find('^profile') and section_content["sso_account_id"] ~= nil then
       -- drop the "profile " prefix
       profile_name = section:sub(9)
+      section_content["name"] = profile_name
+      -- remap sso_account_id to id
+      section_content["id"] = section_content["sso_account_id"]
+      section_content["sso_account_id"] = nil
       table.insert(output, section_content)
-      output[#output]["name"] = profile_name
     end
   end
   return output

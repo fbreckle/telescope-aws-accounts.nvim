@@ -25,7 +25,7 @@ local displayer = entry_display.create({
 local get_previewer_lines = function(entry)
   local lines = {
     "Account Name: " .. entry.value.name,
-    "Account ID: " .. entry.value.sso_account_id,
+    "Account ID: " .. entry.value.id,
   }
   return lines
 end
@@ -69,10 +69,10 @@ local aws_account_picker = function(opts)
           display = function()
             return displayer({
               { account_data.name, "TelescopeResultsIdentifier" },
-              { account_data.sso_account_id, "TelescopeResultsComment"},
+              { account_data.id, "TelescopeResultsComment"},
             })
           end,
-          ordinal = account_data.sso_account_id .. account_data.name,
+          ordinal = account_data.id .. account_data.name,
         }
       end
     },
@@ -98,7 +98,7 @@ local aws_account_picker = function(opts)
           return
         end
         -- perform the actual insert
-        vim.api.nvim_put({ selection.value.sso_account_id }, "", false, true)
+        vim.api.nvim_put({ selection.value.id }, "", false, true)
       end)
       return true
     end,

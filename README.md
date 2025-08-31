@@ -62,13 +62,13 @@ vim.keymap.set('n', '<leader>sa', function()
     -- parse_aws_config = true,
     --
     -- AWS accounts that are added to the list of accounts
-    -- each aws account must be a table with a `name` and `sso_account_id` key
+    -- each aws account must be a table with a `name` and `id` key
     -- static_accounts = {}
     --
     -- example:
     -- static_accounts = {
-    --   { name = "aws-account-name-prod", sso_account_id = "123456789123" },
-    --   { name = "aws-account-name-dev", sso_account_id = "123456789124" },
+    --   { name = "aws-account-name-prod", id = "123456789123" },
+    --   { name = "aws-account-name-dev", id = "123456789124" },
     -- },
   })
 end, { desc = '[S]earch [A]WS accounts' })
