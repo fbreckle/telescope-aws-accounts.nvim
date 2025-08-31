@@ -19,8 +19,9 @@ local displayer = entry_display.create({
   },
 })
 
---- this function takes an entry
--- and renders a preview table
+--- Renders the preview of an entry
+-- @param entry table The entry to create the preview of
+-- @return table The preview of the entry
 local function get_previewer_lines(entry)
   local lines = {
     "Account Name: " .. entry.value.name,
@@ -42,7 +43,7 @@ local aws_account_picker = function(opts)
   -- build results table
   local results = {}
 
-  -- if aws config should parsed, parse it and add to results
+  -- if aws config should be parsed, parse it and add to results
   if opts.parse_aws_config then
     local aws_config = aws_ini_parser.parse_aws_config(vim.fn.expand(opts.aws_config_path))
     local parsed_config = aws_ini_parser.extract_sso_profiles(aws_config)
