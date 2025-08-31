@@ -6,9 +6,6 @@ end
 local aws_account_picker = require("telescope._extensions.aws_accounts.picker")
 
 return telescope.register_extension({
-  -- setup = function(ext_config, config)
-  --   -- access extension config and user config
-  -- end,
   exports = {
     aws_accounts = aws_account_picker
   },

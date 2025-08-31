@@ -19,15 +19,6 @@ local displayer = entry_display.create({
   },
 })
 
-local get_entry_display = function (entry)
-  return displayer(
-    {
-      { entry.name, "TelescopeResultsIdentifier" },
-      { entry.sso_account_id, "TelescopeResultsComment"},
-    }
-  )
-end
-
 --- this function takes an entry
 -- and renders a preview table
 local function get_previewer_lines(entry)
@@ -74,7 +65,12 @@ local aws_account_picker = function(opts)
       entry_maker = function(entry)
         return {
           value = entry,
-          display = function() return get_entry_display(entry) end,
+          display = function()
+            return displayer({
+              { account_data.name, "TelescopeResultsIdentifier" },
+              { account_data.sso_account_id, "TelescopeResultsComment"},
+            })
+          end,
           ordinal = entry.sso_account_id .. entry.name,
         }
       end
