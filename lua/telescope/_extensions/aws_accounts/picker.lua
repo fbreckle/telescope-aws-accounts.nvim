@@ -14,8 +14,8 @@ local displayer = entry_display.create({
   items = {
     -- it is surprisingly difficult to get the precise picker width and then calculate a proper display width
     -- these values work good enough heuristically, i.e. it looks good down in windows down to 60 columns
-    {width = 0.7},
-    {width = 0.3, right_justify = true},
+    { width = 0.7 },
+    { width = 0.3, right_justify = true },
   },
 })
 
