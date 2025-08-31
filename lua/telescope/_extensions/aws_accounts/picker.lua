@@ -24,9 +24,37 @@ local displayer = entry_display.create({
 -- @return table The preview of the entry
 local get_previewer_lines = function(entry)
   local lines = {
-    "Account Name: " .. entry.value.name,
-    "Account ID: " .. entry.value.id,
+    "Name: " .. entry.value.name,
+    "ID: " .. entry.value.id,
+    "",
+    "",
+    "Additional information",
+    "",
   }
+
+  local key_to_nice_name_mapping = {
+    sso_role_name = "SSO Role Name",
+    sso_session = "SSO Session",
+    sso_start_url = "SSO Start URL",
+    sso_region = "SSO Region",
+    sso_registration_scopes = "SSO Registration Scopes",
+  }
+
+  for k, v in pairs(entry.value) do
+    -- we use lower key here, since aws config file keys are case-insensitive
+    local lower_k = string.lower(k)
+    -- generally, id and name are always passed first and therefore processed already
+    -- so we ignore them here
+    if lower_k ~= "id" and lower_k ~= "name" then
+      -- the "nice key name" is either hard mapped from the table above or just the first letter capitalized
+      local nice_key_name = key_to_nice_name_mapping[lower_k]
+      if not nice_key_name then
+        -- if we have no individual mapping for the key, just take the key and capitalize the first letter
+        nice_key_name = lower_k:sub(1,1):upper() .. k:sub(2)
+      end
+      table.insert(lines, nice_key_name .. ": " .. v)
+    end
+  end
   return lines
 end
 
@@ -80,7 +108,7 @@ local aws_account_picker = function(opts)
     sorter = conf.generic_sorter(opts),
     -- add a simple buffer previewer
     previewer = previewers.new_buffer_previewer {
-      title = 'AWS Account Preview',
+      title = 'AWS Account Details',
       define_preview = function(self, entry)
         local bufnr = self.state.bufnr
         local lines = get_previewer_lines(entry)

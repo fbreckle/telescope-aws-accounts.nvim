@@ -62,13 +62,15 @@ vim.keymap.set('n', '<leader>sa', function()
     -- parse_aws_config = true,
     --
     -- AWS accounts that are added to the list of accounts
-    -- each aws account must be a table with a `name` and `id` key
+    -- Each aws account must be a table with a `name` and `id` key
+    -- Arbitrary additional keys (e.g. `description` or `comments`) are allowed and
+    -- will be rendered as additional information as the previewer
     -- static_accounts = {}
     --
     -- example:
     -- static_accounts = {
-    --   { name = "aws-account-name-prod", id = "123456789123" },
-    --   { name = "aws-account-name-dev", id = "123456789124" },
+    --   { name = "aws-account-name-prod", id = "123456789123", description = "This is prod." },
+    --   { name = "aws-account-name-dev", id = "123456789124", ["owning team"] = "interns" },
     -- },
   })
 end, { desc = '[S]earch [A]WS accounts' })
