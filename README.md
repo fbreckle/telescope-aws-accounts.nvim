@@ -50,8 +50,8 @@ To invoke the picker, you can use this snippet in your `init.lua` nvim configura
 
 ```lua
 -- Shortcut for searching AWS accounts
-local telescope = require('telescope')
-vim.keymap.set('n', '<leader>sa', function()
+local telescope = require("telescope")
+vim.keymap.set("n", "<leader>sa", function()
   telescope.extensions.aws_accounts.aws_accounts({
     -- available opts and their defaults:
     --
@@ -73,7 +73,7 @@ vim.keymap.set('n', '<leader>sa', function()
     --   { name = "aws-account-name-dev", id = "123456789124", ["owning team"] = "interns" },
     -- },
   })
-end, { desc = '[S]earch [A]WS accounts' })
+end, { desc = "[S]earch [A]WS accounts" })
 ```
 
 You can then use `<leader>sa` to call the picker.
