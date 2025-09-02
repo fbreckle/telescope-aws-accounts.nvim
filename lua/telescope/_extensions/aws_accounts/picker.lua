@@ -66,6 +66,7 @@ local aws_account_picker = function(opts)
     parse_aws_config = true,
     aws_config_path = "~/.aws/config",
     static_accounts = {},
+    static_accounts_files = {},
   })
 
   -- build results table
@@ -84,6 +85,24 @@ local aws_account_picker = function(opts)
   if opts.static_accounts then
     for _, v in ipairs(opts.static_accounts) do
       table.insert(results, v)
+    end
+  end
+
+  -- if static account files are passed, run them and add the results
+  if opts.static_account_files then
+    for _, static_account_file_path in ipairs(opts.static_account_files) do
+      local f = io.open(vim.fs.abspath(static_account_file_path))
+      if f ~= nil then
+        local content = f:read("*a")
+        local accounts = vim.json.decode(content)
+        if type(accounts) == "table" then
+          for _, account in ipairs(accounts) do
+            table.insert(results, account)
+          end
+        end
+      else
+        vim.notify("aws_account_picker: file '" .. static_account_file_path .. "' does not exist", vim.log.levels.WARN)
+      end
     end
   end
 

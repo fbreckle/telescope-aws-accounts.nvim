@@ -11,8 +11,9 @@ A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) picker to q
 ## Features
 
 - Quickly find (and insert) the AWS account IDs of your AWS accounts
-- Automatically parses your `.aws/config` file for AWS SSO account information
-- Or pass a manual list of your relevant AWS accounts
+- Automatically parses your `~/.aws/config` file for AWS SSO account information
+- Pass a manual list of your relevant AWS accounts
+- Read AWS accounts from a JSON file
 
 ## Installation
 
@@ -53,18 +54,21 @@ To invoke the picker, you can use this snippet in your `init.lua` nvim configura
 local telescope = require("telescope")
 vim.keymap.set("n", "<leader>sa", function()
   telescope.extensions.aws_accounts.aws_accounts({
-    -- available opts and their defaults:
+    -- Available opts and their defaults:
     --
-    -- the path of the aws config file to parse
+    -- The path of the aws config file to parse
     -- aws_config_path = "~/.aws/config",
     --
-    -- whether to parse sso profiles from the AWS config at opts.aws_config_path
+    -- Whether to parse sso profiles from the AWS config at opts.aws_config_path
     -- parse_aws_config = true,
     --
-    -- AWS accounts that are added to the list of accounts
+    -- Static AWS accounts that are added to the list of accounts
     -- Each aws account must be a table with a `name` and `id` key
     -- Arbitrary additional keys (e.g. `description` or `comments`) are allowed and
     -- will be rendered as additional information as the previewer
+    --
+    -- Accounts can be added directly via a lua table in static_accounts
+    --
     -- static_accounts = {}
     --
     -- example:
@@ -72,6 +76,18 @@ vim.keymap.set("n", "<leader>sa", function()
     --   { name = "aws-account-name-prod", id = "123456789123", description = "This is prod." },
     --   { name = "aws-account-name-dev", id = "123456789124", ["owning team"] = "interns" },
     -- },
+    --
+    -- Accounts can also be added by putting them in JSON files and using static_account_files
+    --
+    -- static_account_files = {}
+    --
+    -- example:
+    -- $ cat ~/.aws/accounts.json
+    -- [{ "id": "123123123123", "name": "static-account-from-file", "foo": "bar" }]
+    --
+    -- static_account_files = {
+    --   "~/.aws/accounts.json"
+    -- }
   })
 end, { desc = "[S]earch [A]WS accounts" })
 ```
